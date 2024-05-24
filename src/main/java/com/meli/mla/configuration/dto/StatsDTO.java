@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemDTO {
+public class StatsDTO {
 
     private String id;
-    private Double price;
+    private Double quantity;
 }
