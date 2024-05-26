@@ -1,4 +1,4 @@
-package com.meli.mla.configuration.service.addFavorite;
+package com.meli.mla.service.addFavorite;
 
 import com.google.gson.Gson;
 import com.meli.mla.configuration.dto.CouponDTO;
@@ -11,12 +11,10 @@ import com.meli.mla.configuration.repository.ItemsLikedForUsersRepository;
 import com.meli.mla.configuration.repository.UserRepository;
 import com.meli.mla.configuration.util.ConsumoGenericoUtil;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,12 +39,13 @@ public class AddFavoriteService implements IAddFavoriteService {
     @Override
     public CouponDTO agregarFavoritosPorUsuario(CouponDTO couponRequestDTO) throws Exception {
 
-        UserModel user = userRepository.getReferenceById(couponRequestDTO.getUserId());
+        if (userRepository.existsById(couponRequestDTO.getUserId())) {
 
-        if (StringUtils.isNotBlank(user.getUserId())) {
+            UserModel user = userRepository.getReferenceById(couponRequestDTO.getUserId());
             List<ItemModel> items = new ArrayList<>();
             List<String> itemsNoEncontrados = new ArrayList<>();
             String rawJson = "";
+
             for (String item : couponRequestDTO.getItemsIds()) {
                 rawJson = consumoGenericoUtil.consumoGenericoApi(urlConsumoApi, item);
                 if (rawJson.startsWith("{" + '"' + "id")) {

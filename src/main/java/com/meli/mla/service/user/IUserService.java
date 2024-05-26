@@ -1,4 +1,4 @@
-package com.meli.mla.configuration.service.user;
+package com.meli.mla.service.user;
 
 import com.meli.mla.configuration.dto.UserDTO;
 

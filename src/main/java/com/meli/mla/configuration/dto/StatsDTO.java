@@ -12,5 +12,5 @@ import lombok.Setter;
 public class StatsDTO {
 
     private String id;
-    private Double quantity;
+    private Long quantity;
 }

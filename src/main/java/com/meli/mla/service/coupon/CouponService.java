@@ -1,44 +1,49 @@
-package com.meli.mla.configuration.service.coupon;
+package com.meli.mla.service.coupon;
 
+import com.google.gson.Gson;
 import com.meli.mla.configuration.dto.CouponDTO;
 import com.meli.mla.configuration.dto.ItemDTO;
 import com.meli.mla.configuration.dto.StatsDTO;
+import com.meli.mla.configuration.repository.ItemsLikedForUsersRepository;
 import com.meli.mla.configuration.util.ConsumoGenericoUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 
 @Service
 public class CouponService implements ICouponService {
 
     @Autowired
-    ConsumoGenericoUtil consumoGenericoUtil;
+    private ConsumoGenericoUtil consumoGenericoUtil;
+
+    @Autowired
+    private ItemsLikedForUsersRepository itemsLikedForUsersRepository;
 
     @Value("${url.consumo_items}")
     private String urlConsumoApi;
 
-    public CouponDTO consultaCompraMaxima(CouponDTO couponDTORequest) throws IOException, InterruptedException {
+    public CouponDTO consultaCompraMaxima(CouponDTO couponDTORequest) throws Exception {
 
         List<ItemDTO> items = new ArrayList<>();
-        //llamado a la masiva
-
-        /*String rawJson = "";
+        String rawJson = "";
         for (String item : couponDTORequest.getItemsIds()) {
             //rawJson = consumoGenericoUtil.consumoGenericoApi(urlConsumoApi, String.join(",", couponDTORequest.getItemsIds()));
             rawJson = consumoGenericoUtil.consumoGenericoApi(urlConsumoApi, item);
             items.add(new Gson().fromJson(rawJson, ItemDTO.class));
-        }*/
+        }
 
-        items.add(new ItemDTO("MLA1", 100D));
-        items.add(new ItemDTO("MLA2", 210D));
-        items.add(new ItemDTO("MLA3", 260D));
-        items.add(new ItemDTO("MLA4", 80D));
-        items.add(new ItemDTO("MLA5", 90D));
+        String[] arrayItems = (String[]) items.stream().map(ItemDTO::getId).toArray();
+        for (ItemDTO item : items) {
+            BitSet bs = ArrayUtils.indexesOf(arrayItems, item.getId());
+            if (bs.cardinality() > 1) {
+                throw new Exception("Se encontraton items repetidos");
+            }
+        }
 
         double total = items.stream().mapToDouble(ItemDTO::getPrice).sum();
 
@@ -65,8 +70,12 @@ public class CouponService implements ICouponService {
         return couponDTORequest;
     }
 
-    public List<StatsDTO> consultaItemsConMasFavoritos() {
-
-        return null;
+    @Override
+    public List<StatsDTO> consultaItemsConMasFavoritos() throws Exception {
+        try {
+            return itemsLikedForUsersRepository.consultaItemsConMasFavoritos();
+        } catch (Exception e) {
+            throw new Exception("Ocurrio un error inesperado al realizar la consulta");
+        }
     }
 }

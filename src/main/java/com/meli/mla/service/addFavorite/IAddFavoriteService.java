@@ -1,4 +1,4 @@
-package com.meli.mla.configuration.service.addFavorite;
+package com.meli.mla.service.addFavorite;
 
 import com.meli.mla.configuration.dto.CouponDTO;
 

@@ -1,7 +1,7 @@
 package com.meli.mla.controller.user;
 
 import com.meli.mla.configuration.dto.UserDTO;
-import com.meli.mla.configuration.service.user.IUserService;
+import com.meli.mla.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
