@@ -1,4 +1,4 @@
-package com.meli.mla.controller.addFavorite;
+package com.meli.mla.controller.addfavorite;
 
 import com.meli.mla.configuration.dto.CouponDTO;
 import org.springframework.http.ResponseEntity;

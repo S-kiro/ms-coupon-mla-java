@@ -1,7 +1,7 @@
-package com.meli.mla.controller.addFavorite;
+package com.meli.mla.controller.addfavorite;
 
 import com.meli.mla.configuration.dto.CouponDTO;
-import com.meli.mla.service.addFavorite.IAddFavoriteService;
+import com.meli.mla.service.addfavorite.IAddFavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

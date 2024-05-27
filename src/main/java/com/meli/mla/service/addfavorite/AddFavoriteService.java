@@ -1,4 +1,4 @@
-package com.meli.mla.service.addFavorite;
+package com.meli.mla.service.addfavorite;
 
 import com.google.gson.Gson;
 import com.meli.mla.configuration.dto.CouponDTO;
@@ -9,7 +9,7 @@ import com.meli.mla.configuration.model.UserModel;
 import com.meli.mla.configuration.repository.ItemRepository;
 import com.meli.mla.configuration.repository.ItemsLikedForUsersRepository;
 import com.meli.mla.configuration.repository.UserRepository;
-import com.meli.mla.configuration.util.ConsumoGenericoUtil;
+import com.meli.mla.util.ConsumoGenericoUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,20 +48,22 @@ public class AddFavoriteService implements IAddFavoriteService {
 
             for (String item : couponRequestDTO.getItemsIds()) {
                 rawJson = consumoGenericoUtil.consumoGenericoApi(urlConsumoApi, item);
-                if (rawJson.startsWith("{" + '"' + "id")) {
+                if (rawJson.startsWith("{\"id")) {
                     try {
                         items.add(itemRepository.save(new Gson().fromJson(rawJson, ItemModel.class)));
-                    } catch (Exception e) {
+                    } catch (RuntimeException e) {
                         itemsNoEncontrados.add(item);
                     }
-                } else if (rawJson.startsWith("{" + '"' + "message")) {
+                } else {
                     couponRequestDTO.setItemsIds(ArrayUtils.removeElement(couponRequestDTO.getItemsIds(), item));
                     itemsNoEncontrados.add(item);
                 }
             }
 
             for (ItemModel item : items) {
-                itemsLikedForUsersRepository.save(new ItemsLikedForUserModel(new ItemsLikedForUserId(item, user)));
+                if (item != null) {
+                    itemsLikedForUsersRepository.save(new ItemsLikedForUserModel(new ItemsLikedForUserId(item, user)));
+                }
             }
 
             couponRequestDTO.setItemsIdsNoEncontrados(itemsNoEncontrados.toArray(new String[0]));

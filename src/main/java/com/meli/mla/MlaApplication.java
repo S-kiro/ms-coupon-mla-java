@@ -13,5 +13,4 @@ public class MlaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MlaApplication.class, args);
 	}
-
 }

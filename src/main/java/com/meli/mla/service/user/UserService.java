@@ -21,7 +21,7 @@ public class UserService implements IUserService {
         try {
             userRepository.save(user);
             return "Usuario creado con exito";
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return "Fallo al crear el usuario";
         }
     }

@@ -12,7 +12,6 @@ import java.util.List;
 @Repository
 public interface ItemsLikedForUsersRepository extends JpaRepository<ItemsLikedForUserModel, ItemsLikedForUserId> {
 
-    //@Query(value = "SELECT item_id, COUNT(*) FROM MERCADO_LIBRE.items_liked_for_user GROUP BY item_id ORDER BY COUNT(*) LIMIT 5 ", nativeQuery = true)
     @Query(value = "select new com.meli.mla.configuration.dto.StatsDTO(i.id.itemId.id, COUNT(i)) from ItemsLikedForUserModel i group by i.id.itemId order by COUNT(i) limit 5")
     List<StatsDTO> consultaItemsConMasFavoritos();
 }

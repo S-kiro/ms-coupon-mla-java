@@ -5,7 +5,7 @@ import com.meli.mla.configuration.dto.CouponDTO;
 import com.meli.mla.configuration.dto.ItemDTO;
 import com.meli.mla.configuration.dto.StatsDTO;
 import com.meli.mla.configuration.repository.ItemsLikedForUsersRepository;
-import com.meli.mla.configuration.util.ConsumoGenericoUtil;
+import com.meli.mla.util.ConsumoGenericoUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +37,7 @@ public class CouponService implements ICouponService {
             items.add(new Gson().fromJson(rawJson, ItemDTO.class));
         }
 
-        String[] arrayItems = (String[]) items.stream().map(ItemDTO::getId).toArray();
+        Object[] arrayItems = items.stream().map(ItemDTO::getId).toArray();
         for (ItemDTO item : items) {
             BitSet bs = ArrayUtils.indexesOf(arrayItems, item.getId());
             if (bs.cardinality() > 1) {
@@ -71,11 +71,11 @@ public class CouponService implements ICouponService {
     }
 
     @Override
-    public List<StatsDTO> consultaItemsConMasFavoritos() throws Exception {
+    public List<StatsDTO> consultaItemsConMasFavoritos() throws RuntimeException {
         try {
             return itemsLikedForUsersRepository.consultaItemsConMasFavoritos();
-        } catch (Exception e) {
-            throw new Exception("Ocurrio un error inesperado al realizar la consulta");
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Ocurrio un error inesperado al realizar la consulta");
         }
     }
 }

@@ -1,8 +1,6 @@
-package com.meli.mla.service.addFavorite;
+package com.meli.mla.service.addfavorite;
 
 import com.meli.mla.configuration.dto.CouponDTO;
-
-import java.io.IOException;
 
 public interface IAddFavoriteService {
 
