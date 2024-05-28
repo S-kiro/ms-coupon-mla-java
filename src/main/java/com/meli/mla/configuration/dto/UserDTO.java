@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemDTO {
+public class UserDTO {
 
-    private String id;
-    private Double price;
+    private String userId;
 }

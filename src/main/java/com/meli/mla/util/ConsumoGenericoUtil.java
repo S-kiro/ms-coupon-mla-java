@@ -1,4 +1,4 @@
-package com.meli.mla.configuration.util;
+package com.meli.mla.util;
 
 import org.springframework.context.annotation.Configuration;
 
