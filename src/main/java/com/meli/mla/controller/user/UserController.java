@@ -16,6 +16,6 @@ public class UserController implements IUserController {
 
     @Override
     public ResponseEntity<String> crearUsuario(@RequestBody UserDTO userDTO) throws Exception {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.createUser(userDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userDTO));
     }
 }
