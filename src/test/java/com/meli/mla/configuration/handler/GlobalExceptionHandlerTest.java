@@ -1,5 +1,8 @@
 package com.meli.mla.configuration.handler;
 
+import com.meli.mla.exception.MsCouponMlaException;
+import com.meli.mla.exception.dto.ExceptionDTO;
+import com.meli.mla.exception.handler.GlobalExceptionHandler;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +28,7 @@ class GlobalExceptionHandlerTest {
 
     @Test
     void handleException() {
-        assertNotNull(globalExceptionHandler.handleException(new Exception("Test")));
+        assertNotNull(globalExceptionHandler.handleMsCouponMlaException(new MsCouponMlaException("Test", new ExceptionDTO(), new Exception())));
     }
 
     @AfterEach

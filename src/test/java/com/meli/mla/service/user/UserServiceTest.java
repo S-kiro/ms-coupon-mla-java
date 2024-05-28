@@ -3,6 +3,8 @@ package com.meli.mla.service.user;
 import com.meli.mla.configuration.dto.UserDTO;
 import com.meli.mla.configuration.model.UserModel;
 import com.meli.mla.configuration.repository.UserRepository;
+import com.meli.mla.exception.MsCouponMlaException;
+import com.meli.mla.exception.dto.ExceptionDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,14 +39,21 @@ class UserServiceTest {
     }
 
     @Test
-    void createUser() {
+    void createUser() throws MsCouponMlaException {
         //Camino Feliz
         doReturn(new UserModel()).when(userRepository).save(any(UserModel.class));
         assertNotNull(userService.createUser(userDTO));
 
         //Catch
-        doThrow(new RuntimeException("")).when(userRepository).save(any(UserModel.class));
-        assertNotNull(userService.createUser(userDTO));
+        doThrow(new RuntimeException()).when(userRepository).save(any(UserModel.class));
+        MsCouponMlaException ex = assertThrows(MsCouponMlaException.class, () -> {
+            userService.createUser(userDTO);
+        });
+
+        String expectedMessage = "Ocurrio un error inesperado al realizar la consulta";
+        String actualMessage = ex.getExceptionDTO().getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @AfterEach

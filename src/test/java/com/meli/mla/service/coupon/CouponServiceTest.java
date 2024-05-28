@@ -5,6 +5,8 @@ import static org.mockito.Mockito.*;
 import com.meli.mla.configuration.dto.CouponDTO;
 import com.meli.mla.configuration.dto.StatsDTO;
 import com.meli.mla.configuration.repository.ItemsLikedForUsersRepository;
+import com.meli.mla.exception.MsCouponMlaException;
+import com.meli.mla.exception.dto.ExceptionDTO;
 import com.meli.mla.util.ConsumoGenericoUtil;
 import org.junit.After;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,12 +59,12 @@ class CouponServiceTest {
 
         // Throw "Se encontraton items repetidos"
         couponDTORequest.setItemsIds(new String[]{"MLA1", "MLA2", "MLA1"});
-        Exception ex = assertThrows(Exception.class, () -> {
+        MsCouponMlaException ex = assertThrows(MsCouponMlaException.class, () -> {
             couponService.consultaCompraMaxima(couponDTORequest);
         });
 
         String expectedMessage = "Se encontraton items repetidos";
-        String actualMessage = ex.getMessage();
+        String actualMessage = ex.getExceptionDTO().getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
@@ -75,13 +77,13 @@ class CouponServiceTest {
         assertNotNull(couponService.consultaItemsConMasFavoritos());
 
         // Throw "Se encontraton items repetidos"
-        doThrow(new RuntimeException("Ocurrio un error inesperado al realizar la consulta")).when(itemsLikedForUsersRepository).consultaItemsConMasFavoritos();
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> {
+        doThrow(new RuntimeException()).when(itemsLikedForUsersRepository).consultaItemsConMasFavoritos();
+        MsCouponMlaException ex = assertThrows(MsCouponMlaException.class, () -> {
             couponService.consultaItemsConMasFavoritos();
         });
 
-        String expectedMessage = "Ocurrio un error inesperado al realizar la consulta";
-        String actualMessage = ex.getMessage();
+        String expectedMessage = "Ocurrio un error inesperado";
+        String actualMessage = ex.getExceptionDTO().getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
     }

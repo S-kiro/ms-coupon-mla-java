@@ -9,6 +9,8 @@ import com.meli.mla.configuration.model.UserModel;
 import com.meli.mla.configuration.repository.ItemRepository;
 import com.meli.mla.configuration.repository.ItemsLikedForUsersRepository;
 import com.meli.mla.configuration.repository.UserRepository;
+import com.meli.mla.exception.MsCouponMlaException;
+import com.meli.mla.exception.dto.ExceptionDTO;
 import com.meli.mla.util.ConsumoGenericoUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +38,10 @@ public class AddFavoriteService implements IAddFavoriteService {
     @Value("${url.consumo_items}")
     private String urlConsumoApi;
 
+    private final String className = getClass().getName();
+
     @Override
-    public CouponDTO agregarFavoritosPorUsuario(CouponDTO couponRequestDTO) throws Exception {
+    public CouponDTO agregarFavoritosPorUsuario(CouponDTO couponRequestDTO) throws MsCouponMlaException {
 
         if (userRepository.existsById(couponRequestDTO.getUserId())) {
 
@@ -70,7 +74,8 @@ public class AddFavoriteService implements IAddFavoriteService {
             couponRequestDTO.setUserId(user.getUserId());
 
         } else {
-            throw new Exception("No se encontro el usuario solicitado");
+            throw new MsCouponMlaException("Id not found: " + className,
+                new ExceptionDTO("No se encontro el usuario solicitado", "SQL"));
         }
 
         return couponRequestDTO;

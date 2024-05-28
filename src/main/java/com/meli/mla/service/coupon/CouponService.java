@@ -5,6 +5,8 @@ import com.meli.mla.configuration.dto.CouponDTO;
 import com.meli.mla.configuration.dto.ItemDTO;
 import com.meli.mla.configuration.dto.StatsDTO;
 import com.meli.mla.configuration.repository.ItemsLikedForUsersRepository;
+import com.meli.mla.exception.MsCouponMlaException;
+import com.meli.mla.exception.dto.ExceptionDTO;
 import com.meli.mla.util.ConsumoGenericoUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,9 @@ public class CouponService implements ICouponService {
     @Value("${url.consumo_items}")
     private String urlConsumoApi;
 
-    public CouponDTO consultaCompraMaxima(CouponDTO couponDTORequest) throws Exception {
+    private final String className = getClass().getName();
+
+    public CouponDTO consultaCompraMaxima(CouponDTO couponDTORequest) throws MsCouponMlaException {
 
         List<ItemDTO> items = new ArrayList<>();
         String rawJson = "";
@@ -41,7 +45,8 @@ public class CouponService implements ICouponService {
         for (ItemDTO item : items) {
             BitSet bs = ArrayUtils.indexesOf(arrayItems, item.getId());
             if (bs.cardinality() > 1) {
-                throw new Exception("Se encontraton items repetidos");
+                throw new MsCouponMlaException("Recurrent id: " + className,
+                    new ExceptionDTO("Se encontraton items repetidos", "FINAL_USER"));
             }
         }
 
@@ -71,11 +76,13 @@ public class CouponService implements ICouponService {
     }
 
     @Override
-    public List<StatsDTO> consultaItemsConMasFavoritos() throws RuntimeException {
+    public List<StatsDTO> consultaItemsConMasFavoritos() throws MsCouponMlaException {
         try {
             return itemsLikedForUsersRepository.consultaItemsConMasFavoritos();
         } catch (RuntimeException e) {
-            throw new RuntimeException("Ocurrio un error inesperado al realizar la consulta");
+            throw new MsCouponMlaException("Error consulting favorites: " + className,
+                new ExceptionDTO("Ocurrio un error inesperado al realizar la consulta", "SQL"),
+                e);
         }
     }
 }

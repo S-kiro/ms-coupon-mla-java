@@ -7,6 +7,7 @@ import com.meli.mla.configuration.model.UserModel;
 import com.meli.mla.configuration.repository.ItemRepository;
 import com.meli.mla.configuration.repository.ItemsLikedForUsersRepository;
 import com.meli.mla.configuration.repository.UserRepository;
+import com.meli.mla.exception.MsCouponMlaException;
 import com.meli.mla.util.ConsumoGenericoUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -73,12 +74,12 @@ class AddFavoriteServiceTest {
         //Segundo Catch
         couponDTORequest.setUserId("MIGUEL");
         doReturn(false).when(userRepository).existsById(couponDTORequest.getUserId());
-        Exception ex = assertThrows(Exception.class, () -> {
+        MsCouponMlaException ex = assertThrows(MsCouponMlaException.class, () -> {
             addFavoriteService.agregarFavoritosPorUsuario(couponDTORequest);
         });
 
         String expectedMessage = "No se encontro el usuario solicitado";
-        String actualMessage = ex.getMessage();
+        String actualMessage = ex.getExceptionDTO().getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
     }

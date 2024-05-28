@@ -33,9 +33,9 @@ class AddFavoriteControllerTest {
     }
 
     @Test
-    void crearUsuario() throws Exception {
+    void agregarFavoritosPorUsuario() throws Exception {
         doReturn(new CouponDTO()).when(addFavoriteService).agregarFavoritosPorUsuario(couponDTORequest);
-        assertNotNull(addFavoriteController.crearUsuario(couponDTORequest));
+        assertNotNull(addFavoriteController.agregarFavoritosPorUsuario(couponDTORequest));
     }
 
     @AfterEach
