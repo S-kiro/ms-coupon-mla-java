@@ -29,13 +29,13 @@ class AddFavoriteControllerTest {
     @BeforeEach
     void setUp() {
         openMocks = MockitoAnnotations.openMocks(this);
-        couponDTORequest = new CouponDTO(new String[]{"MLA1", "MLA811601010"}, null, null, "SANTIAGO");
+        couponDTORequest = new CouponDTO(new String[]{"MLA1", "MLA811601010"}, null, "SANTIAGO", null);
     }
 
     @Test
-    void crearUsuario() throws Exception {
+    void agregarFavoritosPorUsuario() throws Exception {
         doReturn(new CouponDTO()).when(addFavoriteService).agregarFavoritosPorUsuario(couponDTORequest);
-        assertNotNull(addFavoriteController.crearUsuario(couponDTORequest));
+        assertNotNull(addFavoriteController.agregarFavoritosPorUsuario(couponDTORequest));
     }
 
     @AfterEach

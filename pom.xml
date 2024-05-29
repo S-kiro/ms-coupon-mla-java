@@ -143,6 +143,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**/com/meli/mla/configuration/*</exclude>
+						<exclude>**/com/meli/mla/exception/dto/*</exclude>
 					</excludes>
 				</configuration>
 				<executions>

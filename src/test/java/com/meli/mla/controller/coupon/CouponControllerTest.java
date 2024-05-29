@@ -32,7 +32,7 @@ class CouponControllerTest {
     void setUp() {
         openMocks = MockitoAnnotations.openMocks(this);
 
-        couponDTORequest = new CouponDTO(new String[]{"MLA1", "MLA2", "MLA3", "MLA4", "MLA5"}, null, 500D, null);
+        couponDTORequest = new CouponDTO(new String[]{"MLA1", "MLA2", "MLA3", "MLA4", "MLA5"}, null, null, 500D);
     }
 
     @Test

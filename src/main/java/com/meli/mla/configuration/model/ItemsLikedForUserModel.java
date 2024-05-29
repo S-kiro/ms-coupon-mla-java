@@ -1,7 +1,9 @@
 package com.meli.mla.configuration.model;
 
 import com.meli.mla.configuration.embeded.ItemsLikedForUserId;
-import jakarta.persistence.*;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

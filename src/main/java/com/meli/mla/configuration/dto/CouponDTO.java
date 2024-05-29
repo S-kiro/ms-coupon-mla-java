@@ -18,8 +18,8 @@ public class CouponDTO {
     private String[] itemsIdsNoEncontrados;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Double amount;
+    private String userId;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String userId;
+    private Double amount;
 }

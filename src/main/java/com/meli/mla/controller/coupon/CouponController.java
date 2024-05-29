@@ -2,6 +2,7 @@ package com.meli.mla.controller.coupon;
 
 import com.meli.mla.configuration.dto.CouponDTO;
 import com.meli.mla.configuration.dto.StatsDTO;
+import com.meli.mla.exception.MsCouponMlaException;
 import com.meli.mla.service.coupon.ICouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,12 @@ public class CouponController implements ICouponController {
     private ICouponService couponService;
 
     @Override
-    public ResponseEntity<CouponDTO> consultaCompraMaxima(CouponDTO couponDTORequest) throws Exception {
+    public ResponseEntity<CouponDTO> consultaCompraMaxima(CouponDTO couponDTORequest) throws MsCouponMlaException {
         return ResponseEntity.status(HttpStatus.OK).body(couponService.consultaCompraMaxima(couponDTORequest));
     }
 
     @Override
-    public ResponseEntity<List<StatsDTO>> consultaItemsConMasFavoritos() throws Exception {
+    public ResponseEntity<List<StatsDTO>> consultaItemsConMasFavoritos() throws MsCouponMlaException {
         return ResponseEntity.status(HttpStatus.OK).body(couponService.consultaItemsConMasFavoritos());
     }
 }

@@ -57,6 +57,7 @@ Content-Type: application/json
 
 {
     "itemsIds": ["MLA1", "MLA2", "MLA3", "MLA4", "MLA5"],
+    "user":"USERTEST"
     "amount": 500
 }
 
