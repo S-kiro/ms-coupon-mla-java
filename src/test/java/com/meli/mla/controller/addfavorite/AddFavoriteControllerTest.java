@@ -29,7 +29,7 @@ class AddFavoriteControllerTest {
     @BeforeEach
     void setUp() {
         openMocks = MockitoAnnotations.openMocks(this);
-        couponDTORequest = new CouponDTO(new String[]{"MLA1", "MLA811601010"}, null, null, "SANTIAGO");
+        couponDTORequest = new CouponDTO(new String[]{"MLA1", "MLA811601010"}, null, "SANTIAGO", null);
     }
 
     @Test

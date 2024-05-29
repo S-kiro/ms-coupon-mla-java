@@ -52,7 +52,7 @@ class AddFavoriteServiceTest {
 
         user = new UserModel("SANTIAGO");
         item = new ItemModel("MLA811601010");
-        couponDTORequest = new CouponDTO(new String[]{"MLA1", "MLA811601010"}, null, null, "SANTIAGO");
+        couponDTORequest = new CouponDTO(new String[]{"MLA1", "MLA811601010"}, null, "SANTIAGO", null);
     }
 
     @Test
