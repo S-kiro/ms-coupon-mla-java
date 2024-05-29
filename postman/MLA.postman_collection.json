@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "93334dc1-e3e4-4c9f-a732-0a6af6a8b306",
+		"name": "MLA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21527486"
+	},
+	"item": [
+		{
+			"name": "coupon",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"itemsIds\": [\"MLA901004621\", \"MLA1135294702\", \"MLA884756232\", \"MLA1109728088\", \"MLA884754676\"],\r\n    \"userId\":\"SANTIAGO\",\r\n    \"amount\": 453000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/mla/v1/coupon",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"mla",
+						"v1",
+						"coupon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":\"DANIEL\"\r\n}   ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/mla/v1/user/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"mla",
+						"v1",
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addFavoriteItem/toUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"itemsIds\": [\"MLA901004621\", \"MLA1135294702\", \"MLA884756232\", \"MLA1109728088\", \"MLA884754676\"],\r\n    \"userId\":\"SANTIAGO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/mla/v1/addFavoriteItem/toUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"mla",
+						"v1",
+						"addFavoriteItem",
+						"toUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "coupon/stats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/mla/v1/coupon/stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"mla",
+						"v1",
+						"coupon",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

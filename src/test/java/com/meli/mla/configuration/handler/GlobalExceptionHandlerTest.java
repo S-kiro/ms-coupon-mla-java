@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.HttpInputMessage;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,8 +29,12 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
-    void handleException() {
-        assertNotNull(globalExceptionHandler.handleMsCouponMlaException(new MsCouponMlaException("Test", new ExceptionDTO(), new Exception())));
+    void handlerMsCouponMlaException() {
+        assertNotNull(globalExceptionHandler.handlerMsCouponMlaException(new MsCouponMlaException("Test", new ExceptionDTO(), new Exception())));
+    }
+    @Test
+    void handlerHttpMessageNotReadableException() {
+        assertNotNull(globalExceptionHandler.handlerHttpMessageNotReadableException(new HttpMessageNotReadableException("Test")));
     }
 
     @AfterEach
